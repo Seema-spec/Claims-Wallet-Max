@@ -11,6 +11,7 @@ interface PaymentTransferModalProps {
   onClose: () => void;
   paymentMethodName?: string;
   transferType?: 'echeck' | 'card' | 'ach' | 'Virtual Card';
+  onComplete?: (tx:any) => void; // ✅ add this
 }
 
 export function PaymentTransferModal({

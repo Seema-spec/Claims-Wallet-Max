@@ -4,21 +4,18 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { CreditCard, Clock, Landmark, MailCheck, ArrowRight } from 'lucide-react';
 import { PaymentTransferModal } from './PaymentTransferModal';
-import { useWallet } from '../hooks/useWalllet';
 import { FeatureCards } from './FeatureCards';
+import { useWallet } from '@/lib/walletProvider';
 
-interface PaymentMethodsProps {
-  onNewTransaction: (tx: Transaction) => void;
-}
 const paymentMethods = [
   {
     id: 'virtual-card',
-    name: 'eCheckk',
+    name: 'Virtual Card',
     description: 'Instant access to funds with Mastercard',
     icon: CreditCard,
     timeframe: 'Instant',
     color: 'from-blue-600 to-indigo-600',
-    type: 'echeckk',
+    type: 'Virtual Card',
   },
   {
     id: 'direct-card',
@@ -49,7 +46,7 @@ const paymentMethods = [
   },
 ];
 
-export const PaymentMethods = ({ onNewTransaction }: PaymentMethodsProps) => {
+export const PaymentMethods = () => {
   const [selectedMethod, setSelectedMethod] = useState<typeof paymentMethods[0] | null>(null);
   const { balance, isTransferring, transfer, setTransactions } = useWallet();
 
@@ -59,7 +56,8 @@ export const PaymentMethods = ({ onNewTransaction }: PaymentMethodsProps) => {
   };
 
   // ✅ fix: receive a Transaction, not just amount
- const handleTransactionComplete = (tx: Transaction) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+ const handleTransactionComplete = (tx:any) => {
     setTransactions((prev) => [tx, ...prev]); // ✅ always update here
   };
 
@@ -105,14 +103,14 @@ export const PaymentMethods = ({ onNewTransaction }: PaymentMethodsProps) => {
           </motion.div>
         ))}
 
+  
         {selectedMethod && (
           <PaymentTransferModal
             open={!!selectedMethod}
             onClose={() => setSelectedMethod(null)}
             paymentMethodName={selectedMethod.name}
-            transferType={selectedMethod.type}
-            wallet={{ balance, isTransferring }}
-            onComplete={handleTransactionComplete} // ✅ pass handler
+            transferType={selectedMethod.type as 'echeck' | 'card' | 'ach' | 'Virtual Card'}
+            onComplete={handleTransactionComplete}
           />
         )}
       </div>

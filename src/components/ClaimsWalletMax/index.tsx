@@ -36,7 +36,7 @@ export function ClaimsWalletMax() {
             <main className="flex-grow pt-24">
                 <HeroSection />
                 <WalletCard onRefresh={() => setShowTransferModal(true)} />
-                <PaymentMethods onSelect={() => setShowTransferModal(true)} />
+                <PaymentMethods/>
                 <RecentTransactions transactions={transactions} />
                 <FooterSection />
                 <Footer />

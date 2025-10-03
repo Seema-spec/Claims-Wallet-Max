@@ -79,10 +79,6 @@ export function FeatureCards() {
         onClose={() => setShowTransferModal(false)}
         paymentMethodName="Virtual Card"
         transferType="Virtual Card" // ✅ must be 'card', 'echeck', or 'ach'
-        onComplete={(tx) => {
-          console.log("Transaction Completed:", tx);
-          setShowTransferModal(false);
-        }}
       />
     </>
   );

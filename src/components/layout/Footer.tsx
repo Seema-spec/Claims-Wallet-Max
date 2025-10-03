@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { LanguageSwitcher } from '../LanguageSwitcher';
+import { LanguageSwitcher } from '../ClaimsWalletMax/LanguageSwitcher';
 
 export function Footer() {
   const { t } = useTranslation();

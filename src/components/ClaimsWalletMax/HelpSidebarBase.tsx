@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence,  easeIn, easeOut,Transition } from 'framer-motion';
 import { X, HelpCircle, ChevronRight, ChevronLeft } from 'lucide-react';
 
 interface HelpItem {
@@ -110,44 +110,35 @@ export function HelpSidebarBase({ isOpen, onClose, content }: HelpSidebarProps) 
     };
   }, [isOpen]);
 
-  // Animation variants for different sidebar elements
-  const sidebarVariants = {
-    open: {
-      x: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 400,
-        damping: 40
-      }
-    },
-    closed: {
-      x: "100%",
-      opacity: 0,
-      transition: {
-        type: "spring",
-        stiffness: 400,
-        damping: 40
-      }
-    }
-  };
 
+const springTransition: Transition = {
+  type: "spring",
+  stiffness: 400,
+  damping: 40
+};
+
+const sidebarVariants = {
+  open: {
+    x: 0,
+    opacity: 1,
+    transition: springTransition
+  },
+  closed: {
+    x: "100%",
+    opacity: 0,
+    transition: springTransition
+  }
+};
   const backdropVariants = {
-    open: {
-      opacity: 1,
-      transition: {
-        duration: 0.2,
-        ease: "easeOut"
-      }
-    },
-    closed: {
-      opacity: 0,
-      transition: {
-        duration: 0.2,
-        ease: "easeIn"
-      }
-    }
-  };
+  open: {
+    opacity: 1,
+    transition: { duration: 0.2, ease: easeOut },
+  },
+  closed: {
+    opacity: 0,
+    transition: { duration: 0.2, ease: easeIn },
+  },
+};
 
   const contentVariants = {
     open: {
